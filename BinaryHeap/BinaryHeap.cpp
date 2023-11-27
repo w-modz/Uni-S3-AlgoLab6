@@ -208,10 +208,7 @@ public:
 		table->values[0] = table->values[table->GetActualSize() - 1];
 		table->values[table->GetActualSize() - 1] = 0;
 		table->actual_size--;
-		if (!greaterEq(table->values[0], left(0)) || !greaterEq(table->values[0], right(0)))
-		{
-			downHeap(0, greaterEq);
-		}
+		downHeap(0, greaterEq);
 		return max;
 	}
 
@@ -242,7 +239,9 @@ public:
 				index = right(index);
 			}
 			if (right(index) < table->actual_size && left(index) < table->actual_size)
-			downHeap(index, greaterEq);
+			{
+				downHeap(index, greaterEq);
+			}
 		}
 	}
 };
@@ -255,7 +254,7 @@ bool greaterEq(const T data1, const T data2)
 
 int main()
 {
-	/*BinaryHeap<int>* heap = new BinaryHeap<int>;
+	BinaryHeap<int>* heap = new BinaryHeap<int>;
 	heap->insert(19, greaterEq<int>);
 	heap->insert(36, greaterEq<int>);
 	heap->insert(25, greaterEq<int>);
@@ -269,7 +268,7 @@ int main()
 	for (size_t i = 9; i > 0; i--)
 	{
 		std::cout << heap->toString(i) << heap->getMax(greaterEq<int>) << '\n';
-	}*/
+	}
 
 	const int MAX_ORDER = 7;
 	BinaryHeap<int>* bh = new BinaryHeap<int>();
