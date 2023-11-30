@@ -1,3 +1,6 @@
+// ALGO2 IS1 221A LAB05
+// Wiktor Modzelewski
+// mw53766@zut.edu.pl
 #include <iostream>
 #include <string>
 #include <array>
@@ -196,7 +199,7 @@ public:
 		T max;
 		if (table->GetActualSize() == 0)
 		{
-			return -1;
+			throw std::domain_error("err");
 		}
 		else if (table->GetActualSize() == 1)
 		{
@@ -206,7 +209,7 @@ public:
 		}
 		max = table->values[0];
 		table->values[0] = table->values[table->GetActualSize() - 1];
-		table->values[table->GetActualSize() - 1] = 0;
+		//table->values[table->GetActualSize() - 1];
 		table->actual_size--;
 		downHeap(0, greaterEq);
 		return max;
@@ -230,13 +233,19 @@ public:
 		{
 			if (greaterEq(table->values[left(index)], table->values[right(index)]))
 			{
-				table->swap(index, left(index));
-				index = left(index);
+				if (left(index) < table->actual_size)
+				{
+					table->swap(index, left(index));
+					index = left(index);
+				}
 			}
 			else
 			{
-				table->swap(index, right(index));
-				index = right(index);
+				if (left(index) < table->actual_size)
+				{
+					table->swap(index, right(index));
+					index = right(index);
+				}
 			}
 			if (right(index) < table->actual_size && left(index) < table->actual_size)
 			{
@@ -254,7 +263,7 @@ bool greaterEq(const T data1, const T data2)
 
 int main()
 {
-	BinaryHeap<int>* heap = new BinaryHeap<int>;
+	/*BinaryHeap<int>* heap = new BinaryHeap<int>;
 	heap->insert(19, greaterEq<int>);
 	heap->insert(36, greaterEq<int>);
 	heap->insert(25, greaterEq<int>);
@@ -268,7 +277,7 @@ int main()
 	for (size_t i = 9; i > 0; i--)
 	{
 		std::cout << heap->toString(i) << heap->getMax(greaterEq<int>) << '\n';
-	}
+	}*/
 
 	const int MAX_ORDER = 7;
 	BinaryHeap<int>* bh = new BinaryHeap<int>();
